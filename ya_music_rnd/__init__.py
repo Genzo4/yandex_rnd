@@ -14,7 +14,7 @@ class YandexMusicRnd:
     def get_artist(self, open_url: bool = None) -> str:
         """
 
-        :param open_url: Bool
+        :param open_url: Bool|None
         :return: Site url
         """
 
