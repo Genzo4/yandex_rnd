@@ -7,10 +7,20 @@ import re
 
 class YandexMusicRnd:
 
-    def __init__(self, max_int=10000000):
+    def __init__(self, max_int: int = 10000000, open_url: bool = True):
         self.max_int = max_int
+        self.open_url = open_url
 
-    def get_artist(self, open_url: bool = True) -> str:
+    def get_artist(self, open_url: bool = None) -> str:
+        """
+
+        :param open_url: Bool
+        :return: Site url
+        """
+
+        if open_url is None:
+            open_url = self.open_url
+
         found = False
         while not found:
             n = random.randint(1, self.max_int)
@@ -26,8 +36,7 @@ class YandexMusicRnd:
                 if e.code == 404:
                     found = False
             else:
-                html = response.read().decode(response.headers.get_content_charset())
-                if len(re.findall('Главное', html)) < 2:
+                if self.check_clear_page(response):
                     found = False
 
             sleep(1)
@@ -37,6 +46,19 @@ class YandexMusicRnd:
 
         return site
 
+    @staticmethod
+    def check_clear_page(response) -> bool:
+        """
+        Check is music on page
+        :param response:
+        :return: Bool
+        """
+        html = response.read().decode(response.headers.get_content_charset())
+        if len(re.findall('Главное', html)) < 2:
+            return True
+
+        return False
+
     @property
     def max_int(self) -> int:
         return self.__max_int
@@ -44,3 +66,11 @@ class YandexMusicRnd:
     @max_int.setter
     def max_int(self, max_int: int):
         self.__max_int = max_int
+
+    @property
+    def open_url(self) -> bool:
+        return self.__open_url
+
+    @open_url.setter
+    def open_url(self, open_url: bool):
+        self.__open_url = open_url
