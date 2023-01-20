@@ -45,7 +45,7 @@ class YandexMusicRnd:
 
             site = f'https://music.yandex.ru/artist/{index}'
 
-            self.show_progress(index)
+            self.show_progress(site)
 
             found = True
             try:
@@ -81,13 +81,13 @@ class YandexMusicRnd:
 
         return False
 
-    def show_progress(self, index: int) -> None:
+    def show_progress(self, site: str) -> None:
         """
         Show progress
-        :param index: Current index
+        :param site: Current site url
         :return: None
         """
-        print(f'{index} [{self.cur_iteration}/{self.max_iterations}]')
+        print(f'{site} [{self.cur_iteration}/{self.max_iterations}]')
 
     @property
     def max_index(self) -> int:

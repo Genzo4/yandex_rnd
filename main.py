@@ -74,8 +74,7 @@ def main():
 
     site = ya_rnd.get_artist()
 
-    if args.dont_open_in_browser:
-        print(site)
+    print(site)
 
 
 if __name__ == '__main__':
