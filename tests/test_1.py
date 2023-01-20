@@ -18,6 +18,7 @@ def test_init_1():
 
     assert ymr.open_url is True
     assert ymr.max_index == 123
+    assert ymr.max_iterations == 60
 
 
 def test_init_2():
@@ -25,13 +26,23 @@ def test_init_2():
 
     assert ymr.open_url is False
     assert ymr.max_index == 23
+    assert ymr.max_iterations == 60
 
 
 def test_init_3():
-    ymr = YandexMusicRnd(open_url=False, max_index=587)
+    ymr = YandexMusicRnd(23, False, 54)
+
+    assert ymr.open_url is False
+    assert ymr.max_index == 23
+    assert ymr.max_iterations == 54
+
+
+def test_init_4():
+    ymr = YandexMusicRnd(open_url=False, max_iterations=79, max_index=587)
 
     assert ymr.open_url is False
     assert ymr.max_index == 587
+    assert ymr.max_iterations == 79
 
 
 def test_setters_getters():
@@ -39,9 +50,11 @@ def test_setters_getters():
 
     ymr.max_index = 235
     ymr.open_url = False
+    ymr.max_iterations = 1987
 
     assert ymr.open_url is False
     assert ymr.max_index == 235
+    assert ymr.max_iterations == 1987
 
 
 def test_check_clear_page():
