@@ -14,6 +14,8 @@ class YandexMusicRnd:
                  find_clear: str = 'no',
                  find_have_albom: str = 'all',
                  find_have_similar: str = 'all',
+                 find_have_clips: str = 'all',
+                 show_progress: bool = True,
                  quiet: bool = False
                  ):
         """
@@ -24,6 +26,8 @@ class YandexMusicRnd:
         :param find_clear:
         :param find_have_albom:
         :param find_have_similar:
+        :param find_have_clips:
+        :param show_progress:
         :param quiet:
         """
 
@@ -34,6 +38,8 @@ class YandexMusicRnd:
         self.find_clear = find_clear
         self.find_have_albom = find_have_albom
         self.find_have_similar = find_have_similar
+        self.find_have_clips = find_have_clips
+        self.show_progress = show_progress
         self.quiet = quiet
 
     def get_artist(self, open_url: bool = None) -> str:
@@ -57,17 +63,15 @@ class YandexMusicRnd:
 
             site = f'https://music.yandex.ru/artist/{index}'
 
-            self.show_progress(site)
+            if not self.quiet and self.show_progress:
+                self.print_progress(site)
 
-            found = True
             try:
                 response = request.urlopen(site)
             except error.HTTPError as e:
-                if e.code == 404:
-                    found = False
+                pass
             else:
-                if self.check_clear_page(response):
-                    found = False
+                found = self.check_filter(response)
 
             sleep(1)
 
@@ -75,27 +79,67 @@ class YandexMusicRnd:
             if open_url:
                 open(site)
         else:
-            print(f'За максимальное количество итераций ({self.max_iterations}) результат не найден.')
+            if not self.quiet:
+                print(f'За максимальное количество итераций ({self.max_iterations}) результат не найден.')
             site = ''
 
         return site
 
-    @staticmethod
-    def check_clear_page(response) -> bool:
+    def check_filter(self, response) -> bool:
         """
-        Check is music on page
+        Check filter parameters
         :param response:
         :return: Bool
         """
         html = response.read().decode(response.headers.get_content_charset())
-        if len(re.findall('Главное', html)) < 2:
-            return True
 
-        return False
+        clear = False
+        albom = False
+        similar = False
+        clips = False
 
-    def show_progress(self, site: str) -> None:
+        if len(re.findall('>Главное</span>', html)) == 0:
+            clear = True
+        else:
+            if len(re.findall('>Альбомы</a>', html)) >= 1:
+                albom = True
+            if len(re.findall('>Похожие</a>', html)) >= 1:
+                similar = True
+            if len(re.findall('>Клипы</a>', html)) >= 1:
+                clips = True
+
+        if self.find_clear == 'yes':
+            if clear:
+                return True
+            else:
+                return False
+
+        if clear and self.find_clear == 'no':
+            return False
+
+        if self.find_have_albom == 'yes' and not albom:
+            return False
+
+        if self.find_have_albom == 'no' and albom:
+            return False
+
+        if self.find_have_similar == 'yes' and not similar:
+            return False
+
+        if self.find_have_similar == 'no' and similar:
+            return False
+
+        if self.find_have_clips == 'yes' and not clips:
+            return False
+
+        if self.find_have_clips == 'no' and clips:
+            return False
+
+        return True
+
+    def print_progress(self, site: str) -> None:
         """
-        Show progress
+        Print progress
         :param site: Current site url
         :return: None
         """
@@ -134,6 +178,14 @@ class YandexMusicRnd:
         self.__quiet = quiet
 
     @property
+    def show_progress(self) -> bool:
+        return self.__show_progress
+
+    @show_progress.setter
+    def show_progress(self, show_progress: bool):
+        self.__show_progress = show_progress
+
+    @property
     def find_have_albom(self) -> str:
         return self.__find_have_albom
 
@@ -148,6 +200,14 @@ class YandexMusicRnd:
     @find_have_similar.setter
     def find_have_similar(self, find_have_similar: str):
         self.__find_have_similar = find_have_similar
+
+    @property
+    def find_have_clips(self) -> str:
+        return self.__find_have_clips
+
+    @find_have_clips.setter
+    def find_have_clips(self, find_have_clips: str):
+        self.__find_have_clips = find_have_clips
 
     @property
     def find_clear(self) -> str:

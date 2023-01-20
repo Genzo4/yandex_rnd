@@ -32,12 +32,21 @@ def parse_args():
     )
 
     parser.add_argument(
+        '-hc',
+        '--have_clips',
+        type=str,
+        choices=['yes', 'no', 'all'],
+        default='all',
+        help='Искать исполнителя, у которого есть клипы. По умолчанию: all'
+    )
+
+    parser.add_argument(
         '-c',
         '--clear',
         type=str,
         choices=['yes', 'no', 'all'],
         default='no',
-        help='Искать исполнителя, у которого нет произведений. По умолчанию: all'
+        help='Искать исполнителя, у которого нет произведений. Имеет приоритет над -ha, -hs. По умолчанию: no'
     )
 
     parser.add_argument(
@@ -62,6 +71,13 @@ def parse_args():
         '--dont_open_in_browser',
         action='store_true',
         help='Не открывать найденный результат в браузере, но вывести его на экран'
+    )
+
+    parser.add_argument(
+        '-np',
+        '--no_progress',
+        action='store_true',
+        help='Не выводить прогресс поиска'
     )
 
     parser.add_argument(
@@ -107,12 +123,15 @@ def main():
         find_clear=args.clear,
         find_have_albom=args.have_albom,
         find_have_similar=args.have_similar,
-        quiet=not args.quiet
+        find_have_clips=args.have_clips,
+        show_progress=not args.no_progress,
+        quiet=args.quiet
         )
 
     site = ya_rnd.get_artist()
 
-    print(site)
+    if not args.quiet:
+        print(site)
 
 
 if __name__ == '__main__':
