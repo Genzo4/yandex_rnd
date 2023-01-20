@@ -14,6 +14,33 @@ def parse_args():
         )
 
     parser.add_argument(
+        '-ha',
+        '--have_albom',
+        type=str,
+        choices=['yes', 'no', 'all'],
+        default='all',
+        help='Искать исполнителя, у которого есть альбомы. По умолчанию: all'
+    )
+
+    parser.add_argument(
+        '-hs',
+        '--have_similar',
+        type=str,
+        choices=['yes', 'no', 'all'],
+        default='all',
+        help='Искать исполнителя, у которого есть похожие. По умолчанию: all'
+    )
+
+    parser.add_argument(
+        '-c',
+        '--clear',
+        type=str,
+        choices=['yes', 'no', 'all'],
+        default='all',
+        help='Искать исполнителя, у которого нет произведений. По умолчанию: all'
+    )
+
+    parser.add_argument(
         '-max',
         '--max_index',
         type=int,
@@ -35,6 +62,13 @@ def parse_args():
         '--dont_open_in_browser',
         action='store_true',
         help='Не открывать найденный результат в браузере, но вывести его на экран'
+    )
+
+    parser.add_argument(
+        '-q',
+        '--quit',
+        action='store_true',
+        help='Ничего не выводить на экран'
     )
 
     parser.add_argument(
@@ -69,7 +103,8 @@ def main():
     ya_rnd = YandexMusicRnd(
         max_index=args.max_index,
         open_url=not(args.dont_open_in_browser),
-        max_iterations=args.max_iterations
+        max_iterations=args.max_iterations,
+
         )
 
     site = ya_rnd.get_artist()

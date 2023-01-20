@@ -10,7 +10,11 @@ class YandexMusicRnd:
     def __init__(self,
                  max_index: int = 10000000,
                  open_url: bool = True,
-                 max_iterations: int = 60
+                 max_iterations: int = 60,
+                 find_clear: bool = False,
+                 find_have_albom: str = 'all',
+                 find_have_similar: str = 'all',
+                 quiet: bool = False
                  ):
         """
         Init class
@@ -23,6 +27,10 @@ class YandexMusicRnd:
         self.open_url = open_url
         self.max_iterations = max_iterations
         self.cur_iteration = 0
+        self.find_clear = find_clear
+        self.find_have_albom = find_have_albom
+        self.find_have_similar = find_have_similar
+        self.quiet = quiet
 
     def get_artist(self, open_url: bool = None) -> str:
         """
@@ -112,3 +120,27 @@ class YandexMusicRnd:
     @max_iterations.setter
     def max_iterations(self, max_iterations: int):
         self.__max_iterations = max_iterations
+
+    @property
+    def quiet(self) -> bool:
+        return self.__quiet
+
+    @quiet.setter
+    def quiet(self, quiet: bool):
+        self.__quiet = quiet
+
+    @property
+    def find_have_albom(self) -> str:
+        return self.__find_have_albom
+
+    @find_have_albom.setter
+    def find_have_albom(self, find_have_albom: str):
+        self.__find_have_albom = find_have_albom
+
+    @property
+    def find_have_similar(self) -> str:
+        return self.__find_have_similar
+
+    @find_have_similar.setter
+    def find_have_similar(self, find_have_similar: str):
+        self.__find_have_similar = find_have_similar
