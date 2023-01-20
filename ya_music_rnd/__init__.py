@@ -56,7 +56,6 @@ class YandexMusicRnd:
             else:
                 if self.check_clear_page(response):
                     found = False
-                found = False
 
             sleep(1)
 
