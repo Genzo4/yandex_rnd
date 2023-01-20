@@ -71,7 +71,8 @@ class YandexMusicRnd:
             except error.HTTPError as e:
                 pass
             else:
-                found = self.check_filter(response)
+                html = response.read().decode(response.headers.get_content_charset())
+                found = self.check_filter(html)
 
             sleep(1)
 
@@ -85,13 +86,12 @@ class YandexMusicRnd:
 
         return site
 
-    def check_filter(self, response) -> bool:
+    def check_filter(self, html) -> bool:
         """
         Check filter parameters
-        :param response:
+        :param html:
         :return: Bool
         """
-        html = response.read().decode(response.headers.get_content_charset())
 
         clear = False
         albom = False
