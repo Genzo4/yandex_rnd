@@ -11,7 +11,7 @@ class YandexMusicRnd:
                  max_index: int = 10000000,
                  open_url: bool = True,
                  max_iterations: int = 60,
-                 find_clear: bool = False,
+                 find_clear: str = 'no',
                  find_have_albom: str = 'all',
                  find_have_similar: str = 'all',
                  quiet: bool = False
@@ -21,6 +21,10 @@ class YandexMusicRnd:
         :param max_index:
         :param open_url:
         :param max_iterations:
+        :param find_clear:
+        :param find_have_albom:
+        :param find_have_similar:
+        :param quiet:
         """
 
         self.max_index = max_index
@@ -144,3 +148,11 @@ class YandexMusicRnd:
     @find_have_similar.setter
     def find_have_similar(self, find_have_similar: str):
         self.__find_have_similar = find_have_similar
+
+    @property
+    def find_clear(self) -> str:
+        return self.__find_clear
+
+    @find_clear.setter
+    def find_clear(self, find_clear: str):
+        self.__find_clear = find_clear
