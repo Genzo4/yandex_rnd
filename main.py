@@ -17,9 +17,10 @@ def parse_args():
         '-max',
         '--max_index',
         type=int,
+        choices=range(1, 10000000),
         default=10000000,
         metavar='max_artist_index',
-        help='Максимальный индекс для поиска артиста')
+        help='Максимальный индекс для поиска артиста. По умолчанию: 10000000. Максимальное значение: 10000000.')
 
     parser.add_argument(
         '-no',
