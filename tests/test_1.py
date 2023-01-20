@@ -1,46 +1,47 @@
 import pytest
-from ya_music_rnd import YandexMusicRnd
 from urllib import request
 from time import sleep
 import re
+
+from ya_music_rnd import YandexMusicRnd
 
 
 def test_defaults():
     ymr = YandexMusicRnd()
 
     assert ymr.open_url is True
-    assert ymr.max_int == 10000000
+    assert ymr.max_index == 10000000
 
 
 def test_init_1():
     ymr = YandexMusicRnd(123)
 
     assert ymr.open_url is True
-    assert ymr.max_int == 123
+    assert ymr.max_index == 123
 
 
 def test_init_2():
     ymr = YandexMusicRnd(23, False)
 
     assert ymr.open_url is False
-    assert ymr.max_int == 23
+    assert ymr.max_index == 23
 
 
 def test_init_3():
-    ymr = YandexMusicRnd(open_url=False, max_int=587)
+    ymr = YandexMusicRnd(open_url=False, max_index=587)
 
     assert ymr.open_url is False
-    assert ymr.max_int == 587
+    assert ymr.max_index == 587
 
 
 def test_setters_getters():
     ymr = YandexMusicRnd()
 
-    ymr.max_int = 235
+    ymr.max_index = 235
     ymr.open_url = False
 
     assert ymr.open_url is False
-    assert ymr.max_int == 235
+    assert ymr.max_index == 235
 
 
 def test_check_clear_page():

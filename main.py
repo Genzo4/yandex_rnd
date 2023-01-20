@@ -54,7 +54,7 @@ def parse_args():
 def main():
     args = parse_args()
 
-    ya_rnd = YandexMusicRnd(max_int=args.max_index, open_url=not(args.dont_open_in_browser))
+    ya_rnd = YandexMusicRnd(max_index=args.max_index, open_url=not(args.dont_open_in_browser))
     site = ya_rnd.get_artist()
 
     if args.dont_open_in_browser:
