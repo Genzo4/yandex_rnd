@@ -36,7 +36,7 @@ setup(
    ],
    keywords=['yandex', 'music', 'yandex_rnd', 'ya_music_rnd', 'ya'],
    license='MIT',
-   packages=['ya-music-rnd'],
+   packages=['ya_music_rnd'],
    install_requires=[],
    python_requires='>=3.8'
 )
