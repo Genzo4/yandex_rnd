@@ -76,7 +76,9 @@ site = ya_rnd.get_artist()  # возвращает URL найденного ар
 
 ***
 
-На основе пакета ya_music_rnd сделана программа yandex_rnd.
+# Yandex Music Rnd
+
+На основе пакета ya_music_rnd сделана программа Yandex Music Rnd.
 Готовые билды программы можно взять в релизах на сайте Github (https://github.com/Genzo4/yandex_rnd/releases)
 
 - ### Билд под Windows
