@@ -6,7 +6,6 @@ This document records all notable changes to
 ## 1.1.0 (2024-04-19)
 - problem with yandex captcha solved
 - urllib -> urllib3
-- fake-useragent
 
 ## 1.0.0 (2023-01-23)
 - First release

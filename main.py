@@ -3,7 +3,7 @@ import argparse
 from ya_music_rnd import YandexMusicRnd
 
 
-version = '1.0.0'
+version = '1.1.0'
 
 
 def parse_args():

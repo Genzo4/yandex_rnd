@@ -37,6 +37,6 @@ setup(
    keywords=['yandex', 'music', 'yandex_rnd', 'ya_music_rnd', 'ya'],
    license='MIT',
    packages=['ya_music_rnd'],
-   install_requires=['urllib3', 'fake-useragent'],
+   install_requires=['urllib3'],
    python_requires='>=3.8'
 )

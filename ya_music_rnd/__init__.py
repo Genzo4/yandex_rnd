@@ -1,6 +1,5 @@
 import random
 from urllib3 import request, exceptions
-from fake_useragent import UserAgent
 from time import sleep
 from webbrowser import open
 import re
@@ -67,9 +66,8 @@ class YandexMusicRnd:
             if not self.quiet and self.show_progress:
                 self.print_progress(site)
 
-            user_agent = UserAgent().getRandom
             header = {
-                'useragent': user_agent['useragent'],
+                'useragent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36 Edg/121.0.0.0',
                 'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
                 'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
                 'Cache-Control': 'no-cache',
