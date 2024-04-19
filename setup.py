@@ -8,7 +8,7 @@ with open(path.join(top_level_directory, 'README.md'), encoding='utf-8') as file
 
 setup(
    name='ya-music-rnd',
-   version='1.0.0',
+   version='1.1.0',
    description='Поиск случайного исполнителя на сайте яндекс музыки',
    long_description=long_description,
    long_description_content_type='text/markdown',
@@ -37,6 +37,6 @@ setup(
    keywords=['yandex', 'music', 'yandex_rnd', 'ya_music_rnd', 'ya'],
    license='MIT',
    packages=['ya_music_rnd'],
-   install_requires=[],
+   install_requires=['urllib3', 'fake-useragent'],
    python_requires='>=3.8'
 )

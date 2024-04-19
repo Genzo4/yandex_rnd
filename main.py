@@ -9,7 +9,7 @@ version = '1.0.0'
 def parse_args():
     parser = argparse.ArgumentParser(
         prog='ya_music_rnd',
-        description='Yandex Music Rnd v.%s' % version + ' (c) 2023 Genzo',
+        description='Yandex Music Rnd v.%s' % version + ' (c) 2024 Genzo',
         add_help=False
         )
 
