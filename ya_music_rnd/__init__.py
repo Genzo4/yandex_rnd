@@ -1,5 +1,6 @@
 import random
-from urllib import request, error
+from urllib3 import request, exceptions
+from fake_useragent import UserAgent
 from time import sleep
 from webbrowser import open
 import re
@@ -66,12 +67,21 @@ class YandexMusicRnd:
             if not self.quiet and self.show_progress:
                 self.print_progress(site)
 
+            user_agent = UserAgent().getRandom
+            header = {
+                'useragent': user_agent['useragent'],
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
+                'Accept-Encoding': 'gzip, deflate, br, zstd', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7',
+                'Cache-Control': 'no-cache',
+                'Cookie': '_ym_uid=1622682016147407419; top100_id=t1.-1.395082145.1655703021280; adtech_uid=1c96e7f3-45ff-4585-9b88-a16144779124%3A; tmr_lvid=997ea03b7523aaf9e0fd16976517d34a; tmr_lvidTS=1622682017469; _ga_2L9VT8HJQE=GS1.1.1683682860.18.1.1683682861.0.0.0; _ga=GA1.2.137072697.1622682018; _ga_0BR10WFP5Z=GS1.2.1687415179.2.0.1687415179.0.0.0; _ym_d=1702424816; t3_sid_4425061=s1.994923944.1712897308203.1712897386591.336.1; last_visit=1712861386592%3A%3A1712897386592; _ga_TZS1E41JJM=GS1.2.1712897309.312.1.1712897386.0.0.0; PHPSESSID=ahun8gohjv99s7kds26jcmgd29; _csrf=aaf6b526379541551f526a37be005efcccc9d4f8063390272258cf965c359ba5a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%222ERUErtaUMh1s_Gupg-D6JhLlVhd3H5K%22%3B%7D; _ym_isad=2; _ym_visorc=w'
+            }
+
             try:
-                response = request.urlopen(site)
-            except error.HTTPError as e:
+                response = request('GET', site, headers=header)
+            except exceptions.HTTPError as e:
                 pass
             else:
-                html = response.read().decode(response.headers.get_content_charset())
+                html = response.data.decode(response.headers.get('Content-charset', 'utf-8'))
                 found = self.check_filter(html)
 
             sleep(1)
